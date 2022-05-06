@@ -171,27 +171,9 @@ class CartScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(
-                  elevation: 6.0,
-                  shadowColor: Theme.of(context).primaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(6.0),
-                  ),
-                ),
-                child: Row(
-                  children: [
-                    const Text('Confirm Order'),
-                    const Spacer(),
-                    Image.asset(
-                      'assets/images/cart-icon.png',
-                      color: Colors.white,
-                      height: size.height * 0.03,
-                      width: size.width * 0.06,
-                    )
-                  ],
-                ),
+              Padding(
+                padding: EdgeInsets.fromLTRB(size.width * 0.08, size.height * 0.01, size.width * 0.08, size.height * 0.025),
+                child: CustomElevatedButton(text: 'CONFIRM ORDER', width: size.width * 0.85, height: size.height * 0.08, color: Theme.of(context).primaryColor, isIcon: false, onPressed: (){}, textColor: Colors.white,borderRadius: 12.0,),
               ),
             ],
           ),
