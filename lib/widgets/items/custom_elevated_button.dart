@@ -1,4 +1,3 @@
-import 'package:eat_app/utils/images.dart';
 import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends StatelessWidget {
@@ -10,9 +9,9 @@ class CustomElevatedButton extends StatelessWidget {
   final double borderRadius;
   final VoidCallback onPressed;
 
-
   const CustomElevatedButton(
-      {required this.text,
+      {Key? key,
+      required this.text,
       required this.width,
       required this.height,
       required this.color,
@@ -20,7 +19,8 @@ class CustomElevatedButton extends StatelessWidget {
       required this.isIcon,
       required this.onPressed,
       this.borderRadius = 4.0,
-      required this.textColor});
+      required this.textColor})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +43,12 @@ class CustomElevatedButton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          isIcon == true ? Image.asset(
-            image!,
-            fit: BoxFit.cover,
-          ): const SizedBox(width: 0, height: 0),
+          isIcon == true
+              ? Image.asset(
+                  image!,
+                  fit: BoxFit.cover,
+                )
+              : const SizedBox(width: 0, height: 0),
           SizedBox(
             width: size.width * .03,
           ),

@@ -1,12 +1,10 @@
 import 'package:eat_app/utils/images.dart';
-import 'package:eat_app/widgets/items/custom_simple_elevated.dart';
-import 'package:eat_app/widgets/items/text_span.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../utils/routes.dart';
-import '../widgets/items/custom_elevated_button.dart';
-import '../widgets/items/custom_text_from_field.dart';
+import '../widgets/widgets.dart';
+
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);

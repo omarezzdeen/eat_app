@@ -1,9 +1,25 @@
-import 'package:eat_app/utils/images.dart';
 import 'package:eat_app/utils/routes.dart';
 import 'package:flutter/material.dart';
 
 class ItemFavourite extends StatelessWidget {
-  const ItemFavourite({Key? key}) : super(key: key);
+  final String id;
+  final String name;
+  final String rating;
+  final String image;
+  final double price;
+  final String category;
+  final bool isFavourite;
+
+  const ItemFavourite({
+    Key? key,
+    required this.id,
+    required this.name,
+    required this.rating,
+    required this.image,
+    required this.price,
+    required this.category,
+    required this.isFavourite,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +27,8 @@ class ItemFavourite extends StatelessWidget {
     return GestureDetector(
       onTap: () => Navigator.of(context).pushNamed(Routs.detailsScreen),
       child: Card(
-        elevation: 10.0,
+        elevation: 6.0,
+        shadowColor: Theme.of(context).primaryColor.withOpacity(0.4),
         child: Column(
           children: [
             ClipRRect(
@@ -22,7 +39,7 @@ class ItemFavourite extends StatelessWidget {
               child: Stack(
                 children: [
                   Image.asset(
-                    ImageResources.testImage,
+                    image,
                     fit: BoxFit.cover,
                     width: size.width,
                     height: size.height * 0.178,
@@ -38,12 +55,20 @@ class ItemFavourite extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Center(
-                        child: Icon(Icons.favorite,
-                            color: Theme.of(context).primaryColor, size: 18.0),
+                        child: isFavourite == true
+                            ? Icon(
+                                Icons.favorite,
+                                color: Theme.of(context).primaryColor,
+                                size: 18.0,
+                              )
+                            : Icon(
+                                Icons.favorite_border,
+                                color: Theme.of(context).primaryColor,
+                                size: 18.0,
+                              ),
                       ),
                     ),
                   ),
-
                 ],
               ),
             ),
@@ -53,12 +78,12 @@ class ItemFavourite extends StatelessWidget {
                 // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Chicken Drumstick',
+                  Text(name,
                       style: Theme.of(context)
                           .textTheme
                           .bodyText2!
                           .copyWith(fontWeight: FontWeight.w600)),
-                  Text('Pieces 5-7',
+                  Text(category,
                       style: Theme.of(context)
                           .textTheme
                           .caption!
@@ -66,20 +91,19 @@ class ItemFavourite extends StatelessWidget {
                 ],
               ),
             ),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 11.0),
               child: Row(
                 children: [
                   const Icon(Icons.star, color: Colors.yellow),
-                  Text('4.7',
+                  Text(rating,
                       style: Theme.of(context)
                           .textTheme
                           .overline!
                           .copyWith(fontSize: 13.0)),
                   const Spacer(),
                   Text(
-                    '\$12',
+                    '\$${price.toStringAsFixed(2)}',
                     style: Theme.of(context).textTheme.overline!.copyWith(
                           fontSize: 13.0,
                           color: Theme.of(context).primaryColor,

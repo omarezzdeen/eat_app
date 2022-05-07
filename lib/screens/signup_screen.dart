@@ -1,10 +1,8 @@
 import 'package:eat_app/utils/images.dart';
 import 'package:eat_app/utils/routes.dart';
-import 'package:eat_app/widgets/items/custom_elevated_button.dart';
-import 'package:eat_app/widgets/items/custom_simple_elevated.dart';
-import 'package:eat_app/widgets/items/custom_text_from_field.dart';
-import 'package:eat_app/widgets/items/text_span.dart';
 import 'package:flutter/material.dart';
+import '../widgets/widgets.dart';
+
 
 class SignUpScreen extends StatefulWidget {
   SignUpScreen({Key? key}) : super(key: key);

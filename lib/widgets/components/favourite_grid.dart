@@ -1,16 +1,30 @@
 import 'package:eat_app/widgets/items/item_favourite.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../../providers/foods.dart';
 
 class FavouriteGrid extends StatelessWidget {
   const FavouriteGrid({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final food = Provider.of<Foods>(context);
     return GridView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
-      itemCount: 10,
-      itemBuilder: (ctx, i) => const ItemFavourite(),
+      itemCount: food.items.length,
+      itemBuilder: (content, index) {
+        final item = food.items[index];
+        return ItemFavourite(
+          id: item.id,
+          name: item.name,
+          image: item.image,
+          rating: item.rating,
+          category: item.category,
+          price: item.price,
+          isFavourite: true,
+        );
+      },
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         mainAxisExtent: 230,

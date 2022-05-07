@@ -1,7 +1,6 @@
-import 'package:eat_app/widgets/components/favourite_grid.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/components/simple_app_bar.dart';
+import '../widgets/widgets.dart';
 
 class FavouriteScreen extends StatelessWidget {
   const FavouriteScreen({Key? key}) : super(key: key);

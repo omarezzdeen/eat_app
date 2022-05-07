@@ -5,3 +5,4 @@ export 'signup_screen.dart';
 export 'cart_screen.dart';
 export 'user_profile_screen.dart';
 export 'favourite_screen.dart';
+export 'details_screen.dart';

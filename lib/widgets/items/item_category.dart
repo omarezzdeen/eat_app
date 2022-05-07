@@ -1,8 +1,9 @@
-import 'package:eat_app/utils/images.dart';
 import 'package:flutter/material.dart';
 
 class ItemCategory extends StatelessWidget {
-  const ItemCategory({Key? key}) : super(key: key);
+  final String name;
+  final String image;
+  const ItemCategory({Key? key, required this.name, required this.image}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,17 +13,17 @@ class ItemCategory extends StatelessWidget {
       child: Column(
         children: [
           Material(
-            shadowColor: Theme.of(context).primaryColor,
+            shadowColor: Theme.of(context).primaryColor.withOpacity(0.2),
             elevation: 10,
             borderRadius: BorderRadius.circular(8),
             child: SizedBox(
               width: size.width * 0.13,
               height: size.height * 0.060,
-              child: Image.asset(ImageResources.burgerImage),
+              child: Image.asset(image),
             ),
           ),
           SizedBox(height: size.height * 0.01),
-          Text('Burger', style: Theme.of(context).textTheme.caption!.copyWith(fontWeight: FontWeight.w600)),
+          Text(name, style: Theme.of(context).textTheme.caption!.copyWith(fontWeight: FontWeight.w600)),
         ],
       ),
     );

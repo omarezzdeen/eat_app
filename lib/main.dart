@@ -1,11 +1,26 @@
+import 'package:eat_app/providers/categories.dart';
+import 'package:eat_app/providers/foods.dart';
 import 'package:eat_app/utils/routes.dart';
 import 'package:flutter/material.dart';
-import 'utils/themes.dart';
+import 'package:provider/provider.dart';
 
 import '../screens/screens.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => Foods(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => Categories(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -21,7 +36,6 @@ class MyApp extends StatelessWidget {
         hoverColor: const Color(0xffbc2c3d),
         shadowColor: const Color(0xffbc2c3d),
         primarySwatch: Colors.red,
-
       ),
       /*
         NAME SIZE  WEIGHT  SPACING
