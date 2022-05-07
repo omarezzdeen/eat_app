@@ -5,7 +5,7 @@ class CustomTextFromFieldSearch extends StatelessWidget {
   final String? textHint;
   final IconData? icon;
 
-  CustomTextFromFieldSearch({required this.textHint, this.icon});
+  const CustomTextFromFieldSearch({Key? key, required this.textHint, this.icon}): super(key: key);
 
   @override
   Widget build(BuildContext context) {

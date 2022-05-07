@@ -1,11 +1,7 @@
 import 'package:eat_app/colors.dart';
 import 'package:eat_app/utils/images.dart';
-import 'package:eat_app/widgets/components/cart_list_view.dart';
-import 'package:eat_app/widgets/components/simple_app_bar.dart';
-import 'package:eat_app/widgets/items/item_cart.dart';
 import 'package:flutter/material.dart';
-
-import '../widgets/items/custom_elevated_button.dart';
+import '../widgets/widgets.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({Key? key}) : super(key: key);

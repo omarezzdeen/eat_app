@@ -1,11 +1,7 @@
-import 'package:eat_app/widgets/components/simple_app_bar.dart';
-import 'package:eat_app/widgets/items/items_profile.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../utils/images.dart';
-import '../widgets/items/custom_text_from_field.dart';
-import '../widgets/items/text_span.dart';
+import '../widgets/widgets.dart';
+
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({Key? key}) : super(key: key);

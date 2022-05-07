@@ -1,22 +1,28 @@
 import 'package:eat_app/colors.dart';
-import 'package:eat_app/widgets/items/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../widgets/widgets.dart';
+import '../providers/foods.dart';
 import '../utils/routes.dart';
-import '../widgets/items/items_details_rating.dart';
 
 class DetailsScreen extends StatelessWidget {
-  // final String title;
-  // final String description;
-  // final String image;
-  //
   const DetailsScreen({
-    Key? key,
+   Key? key,
   }) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final food = Provider.of<Foods>(context);
+    final productId =
+    ModalRoute.of(context)!.settings.arguments as dynamic; // is the id!
+    final loadedFood = Provider.of<Foods>(
+      context,
+      listen: false,
+    ).findById(productId!);
     return Scaffold(
       body: Column(
         children: [
@@ -35,8 +41,8 @@ class DetailsScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                     colorFilter: ColorFilter.mode(
                         Colors.black.withOpacity(0.8), BlendMode.dstATop),
-                    image: const AssetImage(
-                      'assets/images/test.png',
+                    image: AssetImage(
+                      loadedFood.image,
                     ),
                   ),
                 ),
@@ -98,11 +104,11 @@ class DetailsScreen extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              const Expanded(
+                              Expanded(
                                 child: Text(
-                                  'Paradise Hyderabad Biryani',
+                                  loadedFood.name,
                                   maxLines: 2,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       fontSize: 24.0,
                                       fontWeight: FontWeight.w400),
                                 ),
@@ -111,7 +117,7 @@ class DetailsScreen extends StatelessWidget {
                                 width: size.width * 0.08,
                               ),
                               Text(
-                                '\$13.00',
+                                '\$${loadedFood.price}',
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle1!
@@ -132,7 +138,7 @@ class DetailsScreen extends StatelessWidget {
                                 color: Colors.grey,
                               ),
                               Text(
-                                'Chawala Chicken, Crossing republic',
+                                loadedFood.restaurant,
                                 style: Theme.of(context)
                                     .textTheme
                                     .subtitle1!
@@ -228,14 +234,14 @@ class DetailsScreen extends StatelessWidget {
                           Divider(
                             color: Colors.black,
                             height: 1.0,
-                            endIndent: size.width * 0.77,
+                            endIndent: size.width * 0.68,
                             indent: 0.0,
                           ),
                           SizedBox(
                             height: size.height * 0.02,
                           ),
                           Text(
-                            'The name biryani itself brings water in your mouth. It’s a one-pot meat that can fill your stomach itself and it doesn’t need any side dish, however, many enjoy biryani with mirchi ka salan and raita. over the years there have been several variations of this one dish. Here’s one dish that defines the word biryani and based on which, the variations have taken place. Chicken Biryani is one of the most popular dishes that you can find across the world and it’s loaded with various spices. ',
+                            loadedFood.description,
                             style: Theme.of(context)
                                 .textTheme
                                 .bodyText1!

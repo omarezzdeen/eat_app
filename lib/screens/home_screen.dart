@@ -1,7 +1,6 @@
-import 'package:eat_app/widgets/components/category_list.dart';
-import 'package:eat_app/widgets/components/custom_app_bar_home_page.dart';
-import 'package:eat_app/widgets/components/foods_list_view.dart';
 import 'package:flutter/material.dart';
+import '../widgets/widgets.dart';
+
 
 
 class HomeScreen extends StatelessWidget {

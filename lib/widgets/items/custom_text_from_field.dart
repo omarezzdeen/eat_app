@@ -5,8 +5,8 @@ class CustomTextFromField extends StatelessWidget {
   final IconData? icon;
   final bool isIcon;
 
-  CustomTextFromField(
-      {required this.textHint, this.icon, required this.isIcon});
+  const CustomTextFromField(
+      {Key? key,required this.textHint, this.icon, required this.isIcon}): super(key: key);
 
   @override
   Widget build(BuildContext context) {

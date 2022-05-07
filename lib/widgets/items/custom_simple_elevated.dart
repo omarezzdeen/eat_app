@@ -8,12 +8,13 @@ class CustomSimpleElevated extends StatelessWidget {
   final double width, height;
   final Color color, textColor;
 
-  CustomSimpleElevated(
-      {required this.text,
+  const CustomSimpleElevated(
+      {Key? key,
+        required this.text,
         required this.width,
         required this.height,
         required this.color,
-        required this.textColor});
+        required this.textColor}): super(key: key);
 
   @override
   Widget build(BuildContext context) {
