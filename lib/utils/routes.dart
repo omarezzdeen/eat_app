@@ -1,7 +1,6 @@
-
-import 'package:eat_app/screens/details_screen.dart';
 import 'package:eat_app/widgets/components/bottom_navigation_bar.dart';
 
+import '../screens/edit_profile_screen.dart';
 import '../screens/screens.dart';
 
 class AppRouts {
@@ -15,6 +14,7 @@ class AppRouts {
     Routs.signupScreen: (ctx) => SignUpScreen(),
     Routs.bottomNavigationScreen: (ctx) => const BottomNavigationBarMuster(),
     Routs.detailsScreen: (ctx) => const DetailsScreen(),
+    Routs.editProfileScreen: (ctx) => const EditProfileScreen(),
   };
 }
 
@@ -25,4 +25,5 @@ class Routs {
   static const signupScreen = '/signupScreen';
   static const bottomNavigationScreen = '/bottomNavigationScreen';
   static const detailsScreen = '/detailsScreen';
+  static const editProfileScreen = '/editProfileScreen';
 }
