@@ -25,7 +25,7 @@ class ItemFavourite extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () => Navigator.of(context).pushNamed(Routs.detailsScreen),
+      onTap: () => Navigator.of(context).pushNamed(Routs.detailsScreen , arguments: id),
       child: Card(
         elevation: 6.0,
         shadowColor: Theme.of(context).primaryColor.withOpacity(0.4),

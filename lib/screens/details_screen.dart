@@ -11,8 +11,6 @@ class DetailsScreen extends StatelessWidget {
    Key? key,
   }) : super(key: key);
 
-
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
