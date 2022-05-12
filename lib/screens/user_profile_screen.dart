@@ -45,7 +45,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 height: size.height * 0.11,
               ),
               GestureDetector(
-                onTap: () => Navigator.of(context).pushNamed(Routs.editProfileScreen),
+                onTap: () => Navigator.of(context).pushReplacementNamed(Routs.editProfileScreen),
                 child: Stack(
                   children: [
                     SizedBox(

@@ -1,6 +1,7 @@
 import 'package:eat_app/widgets/items/item_cart.dart';
 import 'package:flutter/material.dart';
 
+
 class CartListView extends StatefulWidget {
   const CartListView({Key? key}) : super(key: key);
 
@@ -15,13 +16,22 @@ class _CartListViewState extends State<CartListView> {
 
       // TODO: implement build ---> RESEARCH
 
-      padding: EdgeInsets.all(0),
+      padding: const EdgeInsets.all(0),
       itemCount: 10,
       itemBuilder: (context, index) {
         return Dismissible(
             key: ValueKey<int>(index),
-            onDismissed: (DismissDirection direction) {
-              setState(() {});
+            onDismissed: (direction) {
+              if(direction == DismissDirection.endToStart) {
+                print('Swiped end to start');
+              } else if(direction == DismissDirection.startToEnd) {
+                print('Swiped start to end');
+              }else if(direction == DismissDirection.down) {
+                print('Swiped down');
+              }else if(direction == DismissDirection.none) {
+                print('Swiped none');
+              }
+              // setState(() {});
             },
             child: const ItemCart());
       },

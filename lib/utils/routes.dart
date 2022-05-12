@@ -14,6 +14,7 @@ class AppRouts {
     Routs.signupScreen: (ctx) => SignUpScreen(),
     Routs.bottomNavigationScreen: (ctx) => const BottomNavigationBarMuster(),
     Routs.detailsScreen: (ctx) => const DetailsScreen(),
+    Routs.userProfileScreen: (ctx) => const UserProfileScreen(),
     Routs.editProfileScreen: (ctx) => const EditProfileScreen(),
   };
 }
@@ -25,5 +26,6 @@ class Routs {
   static const signupScreen = '/signupScreen';
   static const bottomNavigationScreen = '/bottomNavigationScreen';
   static const detailsScreen = '/detailsScreen';
+  static const userProfileScreen = '/userProfileScreen';
   static const editProfileScreen = '/editProfileScreen';
 }
