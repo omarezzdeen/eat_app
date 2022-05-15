@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "497829308678",
+    "project_id": "eat-app-ef11a",
+    "storage_bucket": "eat-app-ef11a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:497829308678:android:c2c700f76700e77e295687",
+        "android_client_info": {
+          "package_name": "com.example.eat_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "497829308678-9jd5pleq4up40tpd2adjldsk0se7lrq3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCsKkaIaMGjerr0mEfocvnsOWWBctpNTho"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "497829308678-9jd5pleq4up40tpd2adjldsk0se7lrq3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

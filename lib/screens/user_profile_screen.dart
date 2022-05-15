@@ -1,5 +1,10 @@
+import 'package:eat_app/providers/auth.dart';
 import 'package:eat_app/utils/routes.dart';
+import 'package:eat_app/widgets/items/toast_message.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import '../utils/images.dart';
 import '../widgets/widgets.dart';
 
@@ -45,7 +50,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 height: size.height * 0.11,
               ),
               GestureDetector(
-                onTap: () => Navigator.of(context).pushReplacementNamed(Routs.editProfileScreen),
+                onTap: () => Navigator.of(context)
+                    .pushReplacementNamed(Routs.editProfileScreen),
                 child: Stack(
                   children: [
                     SizedBox(
@@ -54,7 +60,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       child: const Center(
                         child: CircleAvatar(
                           backgroundColor: Colors.transparent,
-                          backgroundImage: AssetImage('assets/images/parson.png'),
+                          backgroundImage:
+                              AssetImage('assets/images/parson.png'),
                           radius: 100,
                         ),
                       ),
@@ -79,7 +86,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             style: Theme.of(context)
                                 .textTheme
                                 .caption!
-                                .copyWith(color: Theme.of(context).primaryColor),
+                                .copyWith(
+                                    color: Theme.of(context).primaryColor),
                           )),
                         )),
                   ],
@@ -200,10 +208,20 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 title: 'Help',
                                 image: 'assets/images/help.png',
                                 isChecked: true),
-                            const ItemProfile(
-                                title: 'Logout',
-                                image: 'assets/images/logout.png',
-                                isChecked: true),
+                            TextButton(
+                              style: TextButton.styleFrom(
+                                primary: Colors.white,
+                                padding: const EdgeInsets.all(0.0),
+                              ),
+                              onPressed: () {
+                                Provider.of<Auth>(context, listen: false)
+                                    .logout(context);
+                              },
+                              child: const ItemProfile(
+                                  title: 'Logout',
+                                  image: 'assets/images/logout.png',
+                                  isChecked: true),
+                            ),
                           ],
                         ),
                       ),
