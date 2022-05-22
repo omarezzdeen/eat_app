@@ -1,13 +1,21 @@
+import 'package:eat_app/providers/auth.dart';
+import 'package:eat_app/providers/carts.dart';
 import 'package:eat_app/providers/categories.dart';
 import 'package:eat_app/providers/foods.dart';
+import 'package:eat_app/providers/master_provider.dart';
+import 'package:eat_app/providers/users.dart';
 import 'package:eat_app/utils/routes.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../screens/screens.dart';
-import 'package:provider/provider.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(
     MultiProvider(
       providers: [
@@ -16,6 +24,18 @@ void main() {
         ),
         ChangeNotifierProvider(
           create: (_) => Categories(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => Auth(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => Users(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MasterProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => Carts(),
         ),
       ],
       child: const MyApp(),

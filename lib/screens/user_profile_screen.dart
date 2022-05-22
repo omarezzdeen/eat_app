@@ -1,10 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eat_app/model/user.dart';
+import 'package:eat_app/providers/auth.dart';
+import 'package:eat_app/providers/toast_message.dart';
+import 'package:eat_app/providers/users.dart';
 import 'package:eat_app/utils/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../utils/images.dart';
 import '../widgets/widgets.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  const UserProfileScreen({Key? key}) : super(key: key);
+
+
+  UserProfileScreen({Key? key}) : super(key: key);
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
@@ -13,8 +21,10 @@ class UserProfileScreen extends StatefulWidget {
 var _isChecked = false;
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
+
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<Users>(context, listen: false);
     final size = MediaQuery.of(context).size;
     return Scaffold(
         body: Stack(
@@ -45,7 +55,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 height: size.height * 0.11,
               ),
               GestureDetector(
-                onTap: () => Navigator.of(context).pushReplacementNamed(Routs.editProfileScreen),
+                onTap: () => Navigator.of(context)
+                    .pushReplacementNamed(Routs.editProfileScreen),
                 child: Stack(
                   children: [
                     SizedBox(
@@ -54,7 +65,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       child: const Center(
                         child: CircleAvatar(
                           backgroundColor: Colors.transparent,
-                          backgroundImage: AssetImage('assets/images/parson.png'),
+                          backgroundImage:
+                              AssetImage('assets/images/parson.png'),
                           radius: 100,
                         ),
                       ),
@@ -79,47 +91,65 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             style: Theme.of(context)
                                 .textTheme
                                 .caption!
-                                .copyWith(color: Theme.of(context).primaryColor),
+                                .copyWith(
+                                    color: Theme.of(context).primaryColor),
                           )),
                         )),
                   ],
                 ),
               ),
-              Text(
-                "Ankit Bhatnagar",
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      color: Colors.white,
-                    ),
-              ),
-              Text(
-                "9990666464  -  creativeankitb@gmail.com",
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      color: Colors.white,
-                    ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/noun_Location_1553710.png',
-                    fit: BoxFit.cover,
-                    color: Colors.white,
-                    width: size.width * 0.03,
-                    height: size.height * 0.02,
-                  ),
-                  SizedBox(
-                    width: size.width * 0.02,
-                  ),
-                  Text(
-                    "Gaur City, Noida",
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                          color: Colors.white,
-                        ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: size.height * 0.02,
+              StreamBuilder(
+                stream: user.getAllUser(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  }  else if(snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  final data = snapshot.requireData;
+                  final userData = data.docs.firstWhere((element) => element.id == data.docs[0].id);
+                  return Column(
+                    children: [
+                      Text(
+                        userData['name'],
+                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                              color: Colors.white,
+                            ),
+                      ),
+                      Text(
+                        "${userData['phone']}  -  ${userData['email']}",
+                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                              color: Colors.white,
+                            ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/images/noun_Location_1553710.png',
+                            fit: BoxFit.cover,
+                            color: Colors.white,
+                            width: size.width * 0.03,
+                            height: size.height * 0.02,
+                          ),
+                          SizedBox(
+                            width: size.width * 0.02,
+                          ),
+                          Text(
+                            "Gaur City, Noida",
+                            style:
+                                Theme.of(context).textTheme.subtitle1!.copyWith(
+                                      color: Colors.white,
+                                    ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: size.height * 0.02,
+                      ),
+                    ],
+                  );
+                },
               ),
               Center(
                 child: Container(
@@ -200,10 +230,20 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 title: 'Help',
                                 image: 'assets/images/help.png',
                                 isChecked: true),
-                            const ItemProfile(
-                                title: 'Logout',
-                                image: 'assets/images/logout.png',
-                                isChecked: true),
+                            TextButton(
+                              style: TextButton.styleFrom(
+                                primary: Colors.white,
+                                padding: const EdgeInsets.all(0.0),
+                              ),
+                              onPressed: () {
+                                Provider.of<Auth>(context, listen: false)
+                                    .logout(context);
+                              },
+                              child: const ItemProfile(
+                                  title: 'Logout',
+                                  image: 'assets/images/logout.png',
+                                  isChecked: true),
+                            ),
                           ],
                         ),
                       ),

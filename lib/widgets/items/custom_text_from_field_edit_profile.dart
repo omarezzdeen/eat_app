@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class CustomTextFromFieldEditProfile extends StatelessWidget {
   final String text;
-  final String initialValue;
+  final TextEditingController? controller;
 
   const CustomTextFromFieldEditProfile(
-      {Key? key, required this.text, required this.initialValue})
+      {Key? key, required this.text, this.controller})
       : super(key: key);
 
   @override
@@ -28,8 +28,9 @@ class CustomTextFromFieldEditProfile extends StatelessWidget {
             height: size.height * 0.01,
           ),
           TextFormField(
-            initialValue: initialValue,
-            autofocus: false,
+            key: key,
+            controller: controller,
+            obscureText: false,
             decoration: const InputDecoration(
               hintText: 'Enter your name',
               contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),

@@ -72,10 +72,10 @@ class EditProfileScreen extends StatelessWidget {
                     ),
                     Column(
                       children: const [
-                        CustomTextFromFieldEditProfile(text: 'Full Name',initialValue: 'Ankit Bhatnagar',),
-                        CustomTextFromFieldEditProfile(text: 'Email Address',initialValue: 'creativeankitb@gmail.com',),
-                        CustomTextFromFieldEditProfile(text: 'Phone Number',initialValue: '9990666464',),
-                        CustomTextFromFieldEditProfile(text: 'Password',initialValue: '**********',),
+                        CustomTextFromFieldEditProfile(text: 'Full Name',),
+                        CustomTextFromFieldEditProfile(text: 'Email Address'),
+                        CustomTextFromFieldEditProfile(text: 'Phone Number'),
+                        CustomTextFromFieldEditProfile(text: 'Password'),
                       ],
                     ),
 

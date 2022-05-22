@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(
                       width: size.width,
                       height: size.height * 0.35,
-                      child: const FoodsListView(),
+                      child: FoodsListView(),
                     ),
                     SizedBox(
                       width: size.width,
@@ -44,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                     SizedBox(
                       width: size.width,
                       height: size.height * 0.35,
-                      child: const FoodsListView(),
+                      child: FoodsListView(),
                     ),
                     SizedBox(
                       height: size.height * 0.05,
