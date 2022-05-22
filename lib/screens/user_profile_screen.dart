@@ -1,15 +1,18 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eat_app/model/user.dart';
 import 'package:eat_app/providers/auth.dart';
+import 'package:eat_app/providers/toast_message.dart';
+import 'package:eat_app/providers/users.dart';
 import 'package:eat_app/utils/routes.dart';
-import 'package:eat_app/widgets/items/toast_message.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import '../utils/images.dart';
 import '../widgets/widgets.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  const UserProfileScreen({Key? key}) : super(key: key);
+
+
+  UserProfileScreen({Key? key}) : super(key: key);
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
@@ -18,8 +21,10 @@ class UserProfileScreen extends StatefulWidget {
 var _isChecked = false;
 
 class _UserProfileScreenState extends State<UserProfileScreen> {
+
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<Users>(context, listen: false);
     final size = MediaQuery.of(context).size;
     return Scaffold(
         body: Stack(
@@ -93,41 +98,58 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   ],
                 ),
               ),
-              Text(
-                "Ankit Bhatnagar",
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      color: Colors.white,
-                    ),
-              ),
-              Text(
-                "9990666464  -  creativeankitb@gmail.com",
-                style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                      color: Colors.white,
-                    ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset(
-                    'assets/images/noun_Location_1553710.png',
-                    fit: BoxFit.cover,
-                    color: Colors.white,
-                    width: size.width * 0.03,
-                    height: size.height * 0.02,
-                  ),
-                  SizedBox(
-                    width: size.width * 0.02,
-                  ),
-                  Text(
-                    "Gaur City, Noida",
-                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                          color: Colors.white,
-                        ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: size.height * 0.02,
+              StreamBuilder(
+                stream: user.getAllUser(),
+                builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  }  else if(snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                  final data = snapshot.requireData;
+                  final userData = data.docs.firstWhere((element) => element.id == data.docs[0].id);
+                  return Column(
+                    children: [
+                      Text(
+                        userData['name'],
+                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                              color: Colors.white,
+                            ),
+                      ),
+                      Text(
+                        "${userData['phone']}  -  ${userData['email']}",
+                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                              color: Colors.white,
+                            ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            'assets/images/noun_Location_1553710.png',
+                            fit: BoxFit.cover,
+                            color: Colors.white,
+                            width: size.width * 0.03,
+                            height: size.height * 0.02,
+                          ),
+                          SizedBox(
+                            width: size.width * 0.02,
+                          ),
+                          Text(
+                            "Gaur City, Noida",
+                            style:
+                                Theme.of(context).textTheme.subtitle1!.copyWith(
+                                      color: Colors.white,
+                                    ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: size.height * 0.02,
+                      ),
+                    ],
+                  );
+                },
               ),
               Center(
                 child: Container(

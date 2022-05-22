@@ -1,11 +1,16 @@
+import 'package:eat_app/model/user.dart';
+import 'package:eat_app/providers/toast_message.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 import '../utils/routes.dart';
 
 class Auth with ChangeNotifier {
+
+
+  FirebaseAuth auth = FirebaseAuth.instance;
+
   toastMessage(String message) {
     Fluttertoast.showToast(
         msg: message,
@@ -17,12 +22,12 @@ class Auth with ChangeNotifier {
         fontSize: 16.0);
   }
 
-  login(String email, String password, BuildContext context) async {
+  Future<String?> login(String email, String password, BuildContext context) async {
     try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
       Navigator.of(context).pushNamed(Routs.bottomNavigationScreen);
       toastMessage("Login Success");
+      return credential.user?.uid;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -34,14 +39,16 @@ class Auth with ChangeNotifier {
     }
   }
 
-  signUp(String email, String password, BuildContext context) async {
+  Future<String?> signUp(UserAuth user, BuildContext context) async {
     try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
+      ToastMessage().toastMessage(user.email + user.password);
+      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: user.email,
+        password: user.password,
       );
       Navigator.of(context).pushNamed(Routs.loginScreen);
       toastMessage("SignUp Success");
+      return credential.user?.uid;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');

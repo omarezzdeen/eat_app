@@ -16,7 +16,7 @@ class _BottomNavigationBarMusterState extends State<BottomNavigationBarMuster> {
     const HomeScreen(),
     const FavouriteScreen(),
     const CartScreen(),
-    const UserProfileScreen(),
+    UserProfileScreen(),
   ];
 
   int _selectedIndex = 0;

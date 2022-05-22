@@ -38,7 +38,7 @@ class ItemFavourite extends StatelessWidget {
               ),
               child: Stack(
                 children: [
-                  Image.asset(
+                  Image.network(
                     image,
                     fit: BoxFit.cover,
                     width: size.width,

@@ -1,9 +1,7 @@
+import 'package:eat_app/model/user.dart';
 import 'package:eat_app/providers/auth.dart';
-import 'package:eat_app/widgets/items/toast_message.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:eat_app/providers/master_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 
 import '../../colors.dart';
@@ -36,6 +34,7 @@ class _ItemsTextFormFieldLoginState extends State<ItemsTextFormFieldLogin> {
     final _emailController = TextEditingController();
     final _passwordController = TextEditingController();
     final auth = Provider.of<Auth>(context, listen: false);
+    final authMaster = Provider.of<MasterProvider>(context, listen: false);
     final size = MediaQuery.of(context).size;
     return Form(
       key: _formKey,
@@ -84,18 +83,25 @@ class _ItemsTextFormFieldLoginState extends State<ItemsTextFormFieldLogin> {
             height: size.height * 0.05,
           ),
           CustomElevatedButton(
-            text: "SIGN IN",
-            textColor: Colors.white,
-            width: size.width * 0.8,
-            height: size.height * 0.06,
-            color: Theme.of(context).primaryColor,
-            isIcon: false,
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                auth.login(_emailController.text, _passwordController.text,context);
-              }
-            }
-          ),
+              text: "SIGN IN",
+              textColor: Colors.white,
+              width: size.width * 0.8,
+              height: size.height * 0.06,
+              color: Theme.of(context).primaryColor,
+              isIcon: false,
+              onPressed: () {
+                if (_formKey.currentState!.validate()) {
+                  if(_emailController.text == 'admin@admin.com'){
+                     Navigator.of(context).pushNamed(Routs.adminHomeScreen);
+                  }else{
+                    authMaster.loginMaster(
+                      _emailController.text,
+                      _passwordController.text,
+                      context,
+                    );
+                  }
+                }
+              }),
           SizedBox(
             height: size.height * 0.027,
           ),
@@ -106,7 +112,7 @@ class _ItemsTextFormFieldLoginState extends State<ItemsTextFormFieldLogin> {
             width: size.width * 0.8,
             height: size.height * 0.06,
             color: HexColor("#494FB6"),
-            onPressed: () async{
+            onPressed: () async {
               // auth.signInWithFacebook();
             },
             isIcon: true,

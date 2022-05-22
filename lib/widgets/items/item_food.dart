@@ -1,30 +1,38 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eat_app/utils/routes.dart';
 import 'package:flutter/material.dart';
 
-class ItemFood extends StatelessWidget {
+class ItemFood extends StatefulWidget {
   final String id;
   final String name;
   final String rating;
+  final String category;
   final String image;
-  final bool isFavourite;
+  bool isFavourite;
 
-  const ItemFood({
+  ItemFood({
     Key? key,
     required this.id,
     required this.name,
     required this.rating,
+    required this.category,
     required this.image,
     required this.isFavourite,
   }) : super(key: key);
 
+  @override
+  State<ItemFood> createState() => _ItemFoodState();
+}
+
+class _ItemFoodState extends State<ItemFood> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Padding(
       padding: EdgeInsets.only(right: size.width * 0.04),
       child: GestureDetector(
-        onTap: () =>
-            Navigator.of(context).pushNamed(Routs.detailsScreen, arguments: id),
+        onTap: () => Navigator.of(context)
+            .pushNamed(Routs.detailsScreen, arguments: widget.id),
         child: SizedBox(
           width: size.width * 0.45,
           height: size.height * 0.34,
@@ -43,8 +51,8 @@ class ItemFood extends StatelessWidget {
                         fit: BoxFit.cover,
                         colorFilter: ColorFilter.mode(
                             Colors.black.withOpacity(0.9), BlendMode.dstATop),
-                        image: AssetImage(
-                          image,
+                        image: NetworkImage(
+                          widget.image,
                         ),
                       ),
                     ),
@@ -60,31 +68,50 @@ class ItemFood extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                       ),
                       child: Center(
-                        child: isFavourite == true
-                            ? Icon(
-                                Icons.favorite,
-                                color: Theme.of(context).primaryColor,
-                                size: 18.0,
-                              )
-                            : Icon(
-                                Icons.favorite_border,
-                                color: Theme.of(context).primaryColor,
-                                size: 18.0,
-                              ),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              FirebaseFirestore.instance
+                                  .collection('foods')
+                                  .doc(widget.id)
+                                  .update({'isFavorite': true});
+                              widget.isFavourite == true
+                                  ? FirebaseFirestore.instance
+                                      .collection('foods')
+                                      .doc(widget.id)
+                                      .update({'isFavorite': false})
+                                  : FirebaseFirestore.instance
+                                      .collection('foods')
+                                      .doc(widget.id)
+                                      .update({'isFavorite': true});
+                            });
+                          },
+                          child: widget.isFavourite == true
+                              ? Icon(
+                                  Icons.favorite,
+                                  color: Theme.of(context).primaryColor,
+                                  size: 18.0,
+                                )
+                              : Icon(
+                                  Icons.favorite_border,
+                                  color: Theme.of(context).primaryColor,
+                                  size: 18.0,
+                                ),
+                        ),
                       ),
                     ),
                   ),
                 ],
               ),
               Text(
-                name,
+                widget.name,
                 maxLines: 1,
                 style: Theme.of(context)
                     .textTheme
                     .subtitle1!
                     .copyWith(fontWeight: FontWeight.w500, fontSize: 18.0),
               ),
-              Text('Pieces 5-7',
+              Text(widget.category,
                   style: Theme.of(context)
                       .textTheme
                       .subtitle1!
@@ -98,7 +125,7 @@ class ItemFood extends StatelessWidget {
                     size: 15.0,
                   ),
                   Text(
-                    rating,
+                    widget.rating,
                     style: Theme.of(context)
                         .textTheme
                         .bodyText2!

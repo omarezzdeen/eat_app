@@ -1,3 +1,4 @@
+import 'package:eat_app/screens/admin_home_screen.dart';
 import 'package:eat_app/widgets/components/bottom_navigation_bar.dart';
 
 import '../screens/edit_profile_screen.dart';
@@ -14,8 +15,11 @@ class AppRouts {
     Routs.signupScreen: (ctx) => SignUpScreen(),
     Routs.bottomNavigationScreen: (ctx) => const BottomNavigationBarMuster(),
     Routs.detailsScreen: (ctx) => const DetailsScreen(),
-    Routs.userProfileScreen: (ctx) => const UserProfileScreen(),
+    Routs.cartScreen: (ctx) => const CartScreen(),
+    Routs.userProfileScreen: (ctx) => UserProfileScreen(),
     Routs.editProfileScreen: (ctx) => const EditProfileScreen(),
+    Routs.adminHomeScreen: (ctx) => const AdminHomeScreen(),
+
   };
 }
 
@@ -26,6 +30,8 @@ class Routs {
   static const signupScreen = '/signupScreen';
   static const bottomNavigationScreen = '/bottomNavigationScreen';
   static const detailsScreen = '/detailsScreen';
+  static const cartScreen = '/cartScreen';
   static const userProfileScreen = '/userProfileScreen';
   static const editProfileScreen = '/editProfileScreen';
+  static const adminHomeScreen = '/adminHomeScreen';
 }

@@ -2,7 +2,11 @@ import 'package:eat_app/utils/images.dart';
 import 'package:flutter/material.dart';
 
 class ItemCart extends StatelessWidget {
-  const ItemCart({Key? key}) : super(key: key);
+  final String name;
+  final String image;
+  final double price;
+
+  ItemCart({Key? key, required this.name, required this.image, required this.price}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +30,8 @@ class ItemCart extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(15.0),
-                child: Image.asset(
-                  ImageResources.testImage,
+                child: Image.network(
+                  image,
                   fit: BoxFit.cover,
                   width: size.width * 0.16,
                 ),
@@ -40,7 +44,7 @@ class ItemCart extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text('Easy Spanish Chicken'),
+                Text(name),
                 SizedBox(
                   height: size.height * 0.02,
                 ),
@@ -87,7 +91,7 @@ class ItemCart extends StatelessWidget {
                   color: Colors.grey,
                 ),
                 const Spacer(),
-                Text('\$20.00',
+                Text('\$$price',
                     style: Theme.of(context)
                         .textTheme
                         .bodyText1!

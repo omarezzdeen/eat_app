@@ -1,6 +1,9 @@
 import 'package:eat_app/providers/auth.dart';
+import 'package:eat_app/providers/carts.dart';
 import 'package:eat_app/providers/categories.dart';
 import 'package:eat_app/providers/foods.dart';
+import 'package:eat_app/providers/master_provider.dart';
+import 'package:eat_app/providers/users.dart';
 import 'package:eat_app/utils/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +26,16 @@ void main() async {
           create: (_) => Categories(),
         ),
         ChangeNotifierProvider(
-          create: (_) => Auth(),
+          create: (context) => Auth(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => Users(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => MasterProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => Carts(),
         ),
       ],
       child: const MyApp(),

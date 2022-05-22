@@ -1,3 +1,5 @@
+import 'package:eat_app/model/user.dart';
+import 'package:eat_app/providers/master_provider.dart';
 import 'package:eat_app/widgets/items/text_span.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +22,7 @@ class ItemsTextFormFieldSignup extends StatefulWidget {
 class _ItemsTextFormFieldSignupState extends State<ItemsTextFormFieldSignup> {
   var _isChecked = true;
 
-  var _isLoading = true;
+  // var _isLoading = true;
   String _userName = '';
   String _userEmail = '';
   String _userPhone = '';
@@ -28,6 +30,7 @@ class _ItemsTextFormFieldSignupState extends State<ItemsTextFormFieldSignup> {
   String _userRetryPassword = '';
   final _formKey = GlobalKey<FormState>();
 
+  //
   @override
   Widget build(BuildContext context) {
     final _nameController = TextEditingController();
@@ -35,8 +38,14 @@ class _ItemsTextFormFieldSignupState extends State<ItemsTextFormFieldSignup> {
     final _phoneController = TextEditingController();
     final _passwordController = TextEditingController();
     final _retryPasswordController = TextEditingController();
-    final _isCheckedController = TextEditingController();
+    // final _isCheckedController = TextEditingController();
 
+    UserAuth userAuth = UserAuth(
+        name: _nameController.text,
+        email: _emailController.text,
+        phone: _phoneController.text,
+        password: _passwordController.text,
+        passwordConfirm: _retryPasswordController.text);
     final Size size = MediaQuery.of(context).size;
     return Form(
       key: _formKey,
@@ -168,14 +177,18 @@ class _ItemsTextFormFieldSignupState extends State<ItemsTextFormFieldSignup> {
               color: Theme.of(context).primaryColor,
               isIcon: false,
               onPressed: () async {
-                _trySubmit();
-                if(_formKey.currentState!.validate()){
+                // _trySubmit();
+                if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
-                  Provider.of<Auth>(context, listen: false)
-                      .signUp(
-                    _userEmail,
-                    _userPassword,
-                    context
+                  Provider.of<MasterProvider>(context, listen: false).register(
+                    UserAuth(
+                      name: _nameController.text,
+                      email: _emailController.text,
+                      phone: _phoneController.text,
+                      password: _passwordController.text,
+                      passwordConfirm: _retryPasswordController.text,
+                    ),
+                    context,
                   );
                 }
               },
